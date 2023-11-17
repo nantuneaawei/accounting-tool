@@ -78,8 +78,8 @@ cp .env.example .env
 
 - 安裝套件 & 設定 app key
 ```
-docker-compose exec nginx-php composer install
-docker-compose exec nginx-php php artisan key:generate
+docker-compose exec app composer install
+docker-compose exec app php artisan key:generate
 ```
 ## yarn
 
