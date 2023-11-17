@@ -67,15 +67,15 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 ## Docker
 
-建立docker環境 : docker-compose up -d
-進入app : docker-compose exec -it app /bin/sh
+- 建立docker環境 : docker-compose up -d
+- 進入app : docker-compose exec -it app /bin/sh
 
 ## yarn
 
-yarn dun dev
-npm run dev
+- yarn dun dev
+- npm run dev
 
 ## laravel migrate
 
-建立資料表 : docker-compose exec app php artisan migrate
-建立測試資料 : docker-compose exec app php artisan db:seed
+- 建立資料表 : docker-compose exec app php artisan migrate
+- 建立測試資料 : docker-compose exec app php artisan db:seed
