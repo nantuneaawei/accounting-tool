@@ -51,7 +51,7 @@ $(function () {
                     }
                 },
                 error: function (xhr, status, error) {
-                    // 处理错误
+
                 }
             });
         } else {

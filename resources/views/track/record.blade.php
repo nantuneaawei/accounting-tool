@@ -49,7 +49,6 @@
 		@include('layouts.outlist')
 		@include('layouts.inlist')
 	</div>
-    @vite('resources/js/record.js')
 </body>
 
 
