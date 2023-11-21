@@ -46,5 +46,5 @@
 		</div>
 	</div>
 </body>
-@vite('resources/js/register.js')
+@vite('resources/js/auth/register.js')
 </html>

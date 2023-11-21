@@ -51,6 +51,6 @@
 			
 		</div>
 	</div>
-    @vite('resources/js/login.js')
+    @vite('resources/js/auth/login.js')
 </body>
 </html>

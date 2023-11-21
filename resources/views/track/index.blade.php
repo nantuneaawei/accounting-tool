@@ -47,7 +47,7 @@
 			</div>
 		</div>
 	</div>
-	@vite('resources/js/out.js')
+	@vite('resources/js/tools/out.js')
 </body>
 
 
