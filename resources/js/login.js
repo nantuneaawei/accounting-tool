@@ -1,8 +1,9 @@
-var flag_password = false;
-var flag_pwd2 = false;
-
 // 主程式
 $(function () {
+    var flags = {
+        password: false,
+        pwd2: false,
+    };
     // 按鈕監聽
     $("#Login_btn").bind("click", function () {
         login();
@@ -11,6 +12,7 @@ $(function () {
     // 即時監聽 密碼
     $("#Login_Password").bind("input propertychange", function () {
         validatePassword();
+        validateConfirmPassword();  // 確保在輸入密碼時也同時檢查確認密碼
     });
 
     // 即時監聽 確認密碼
@@ -30,7 +32,7 @@ $(function () {
     });
 
     function login() {
-        if (flag_password && flag_pwd2) {
+        if (validateForm()) {
             var dataJSON = {
                 Email: $("#Login_Email").val(),
                 Password: $("#Login_Password").val(),
@@ -59,27 +61,44 @@ $(function () {
         }
     }
 
-    function validatePassword() {
-        if ($("#Login_Password").val().length < 9 && $("#Login_Password").val().length > 3) {
-            $("#err_password").html("符合規定");
-            $("#err_password").css("color", "#0E0");
-            flag_password = true;
-        } else {
-            $("#err_password").html("字數不符合規定!");
-            $("#err_password").css("color", "#F00");
-            flag_password = false;
-        }
+    function validateForm() {
+        return flags.password && flags.pwd2;
     }
 
-    function validateConfirmPassword() {
-        if ($("#Login_pwd2").val() == $("#Login_Password").val()) {
-            $("#err_pwd2").html("與密碼相同");
-            $("#err_pwd2").css("color", "#0E0");
-            flag_pwd2 = true;
-        } else {
-            $("#err_pwd2").html("與密碼不符合");
-            $("#err_pwd2").css("color", "#F00");
-            flag_pwd2 = false;
+    function validatePassword() {
+        var password = $("#Login_Password").val();
+        
+        // 如果值為空，清空錯誤提示並退出
+        if (!password.trim()) {
+            updateValidationStatus("#err_password", false, "", "");
+            flags.password = false;
+            return;
         }
+    
+        var isValid = password.length > 3 && password.length < 9;
+        updateValidationStatus("#err_password", isValid, "符合規定", "字數不符合規定!");
+        flags.password = isValid;
+    }
+    
+    function validateConfirmPassword() {
+        var confirmPassword = $("#Login_pwd2").val();
+    
+        // 如果值為空，清空錯誤提示並退出
+        if (!confirmPassword.trim()) {
+            updateValidationStatus("#err_pwd2", false, "", "");
+            flags.pwd2 = false;
+            return;
+        }
+    
+        var isValid = confirmPassword === $("#Login_Password").val();
+        updateValidationStatus("#err_pwd2", isValid, "與密碼相同", "與密碼不符合");
+        flags.pwd2 = isValid;
+    }
+    
+
+    function updateValidationStatus(elementId, isValid, validMessage, invalidMessage) {
+        var $element = $(elementId);
+        $element.html(isValid ? validMessage : invalidMessage);
+        $element.css("color", isValid ? "#0E0" : "#F00");
     }
 });
