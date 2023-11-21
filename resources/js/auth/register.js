@@ -39,6 +39,7 @@ $(function () {
 
     $("#Register_Password").on("input propertychange", function () {
         validatePassword();
+        validateConfirmPassword();
     });
 
     $("#Register_pwd2").on("input propertychange", function () {
@@ -55,19 +56,44 @@ $(function () {
 
     function validatePassword() {
         var password = $("#Register_Password").val();
+        
+        // 如果值為空，清空錯誤提示並退出
+        if (!password.trim()) {
+            updateValidationStatus("#err_password", false, "", "");
+            flags.password = false;
+            return;
+        }
+    
         var isValid = password.length > 3 && password.length < 9;
         updateValidationStatus("#err_password", isValid, "符合規定", "字數不符合規定!");
         flags.password = isValid;
     }
-
+    
     function validateConfirmPassword() {
-        var isValid = $("#Register_pwd2").val() === $("#Register_Password").val();
+        var confirmPassword = $("#Register_pwd2").val();
+    
+        // 如果值為空，清空錯誤提示並退出
+        if (!confirmPassword.trim()) {
+            updateValidationStatus("#err_pwd2", false, "", "");
+            flags.pwd2 = false;
+            return;
+        }
+
+        var isValid = confirmPassword === $("#Register_Password").val();
         updateValidationStatus("#err_pwd2", isValid, "與密碼相同", "與密碼不符合");
         flags.pwd2 = isValid;
     }
 
     function validateNickname() {
         var nickname = $("#Register_Nickname").val();
+
+        // 如果值為空，清空錯誤提示並退出
+        if (!nickname.trim()) {
+            updateValidationStatus("#err_Nickname", false, "", "");
+            flags.nickname = false;
+            return;
+        }
+        
         var isValid = nickname.length > 0 && nickname.length < 16;
         updateValidationStatus("#err_Nickname", isValid, "符合規定", "字數不符合規定!字數超過15以上");
         flags.nickname = isValid;
