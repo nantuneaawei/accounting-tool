@@ -83,7 +83,7 @@ docker-compose exec app php artisan key:generate
 ```
 ## yarn
 
-- yarn dun dev
+- yarn run dev
 - npm run dev
 
 ## laravel migrate
